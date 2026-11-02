@@ -2,22 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Models\Genre;
+
 class GenreController extends Controller
 {
+    // Read all data
     public function index()
     {
-        $genres = [
-            ['id' => 1, 'name' => 'Fiction', 'description' => 'Fictional stories'],
-            ['id' => 2, 'name' => 'Non-Fiction', 'description' => 'Real stories'],
-            ['id' => 3, 'name' => 'Fantasy', 'description' => 'Magical and mythical worlds'],
-            ['id' => 4, 'name' => 'Mystery', 'description' => 'Detective and mystery books'],
-            ['id' => 5, 'name' => 'Horror', 'description' => 'Scary novel stories'],
-        ];
+        $genres = Genre::all();
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'Data Genre berhasil diambil',
-            'data' => $genres
+            'data'    => $genres
         ], 200);
+    }
+
+    // Create data
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name'        => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $genre = Genre::create([
+            'name'        => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => 'Data Genre berhasil ditambahkan',
+            'data'    => $genre
+        ], 201);
     }
 }
