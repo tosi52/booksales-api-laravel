@@ -5,13 +5,9 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 
-// Rute untuk Genre (Read & Create)
-Route::get('/genres', [GenreController::class, 'index']);
-Route::post('/genres', [GenreController::class, 'store']);
+// Menggunakan apiResource untuk otomatis mendaftarkan route index, store, show, update, destroy
+Route::apiResource('genres', GenreController::class);
+Route::apiResource('authors', AuthorController::class);
 
-// Rute untuk Author (Read & Create)
-Route::get('/authors', [AuthorController::class, 'index']);
-Route::post('/authors', [AuthorController::class, 'store']);
-
-// Rute untuk Book (Read)
+// Route untuk Book
 Route::get('/books', [BookController::class, 'index']);
