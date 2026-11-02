@@ -8,7 +8,7 @@
     <h1>Daftar Author</h1>
     <ul>
         @foreach($authors as $author)
-            <li><strong>{{ $author['name'] }}</strong> ({{ $author['email'] }})</li>
+            <li><strong>{{ $author->name }}</strong> ({{ $author->email }})</li>
         @endforeach
     </ul>
 </body>
